@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  publish:
 
     runs-on: windows-latest
     
@@ -18,3 +18,8 @@ jobs:
         dotnet-version: 3.0.100-preview8-013656
     - name: Publish with dotnet
       run: dotnet publish --configuration Release
+    - name: Create artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: publish
+        path: src\dworthen.grpc.certificate.client\bin\Release\netcoreapp3.0\win-x64
