@@ -32,7 +32,7 @@ namespace dworthen.grpc.certificate
                             Console.WriteLine(Directory.GetCurrentDirectory());
                             Console.WriteLine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase));
                             Console.WriteLine(System.AppContext.BaseDirectory);
-                            //Console.WriteLine(Path.GetDirectoryName(typeof(Program).Assembly.Location));
+                            Console.WriteLine(Path.GetDirectoryName(typeof(Program).Assembly.Location));
                             //string basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
                             string basePath = System.AppContext.BaseDirectory;
                             string certPath = Path.Combine(basePath!, "Certs", "server.pfx");
