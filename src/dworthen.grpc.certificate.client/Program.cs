@@ -18,8 +18,10 @@ namespace dworthen.grpc.certificate.client
 
         static async System.Threading.Tasks.Task Main(string[] args)
         {
-            string basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+            //string basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+            string basePath = System.AppContext.BaseDirectory;
             string certPath = Path.Combine(basePath!, "Certs", "client.pfx");
+            Console.WriteLine(certPath);
 
             X509Certificate2 certificate = new X509Certificate2(certPath, "1111");
 
