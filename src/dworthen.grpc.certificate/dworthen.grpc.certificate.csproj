@@ -8,10 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\certificates\*.*" LinkBase="Certs">
+    <None Include="..\certificates\*.*" LinkBase="Certs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-    </Content>
+    </None>
     
     <Protobuf Include="..\Protos\greet.proto" GrpcServices="Server" Link="Protos\greet.proto" />
   </ItemGroup>
