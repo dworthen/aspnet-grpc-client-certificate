@@ -32,6 +32,6 @@ jobs:
       uses: docker://softprops/action-gh-release
       with:
         name: winx64GrpcService
-        files: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish\
+        files: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish\**
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
