@@ -22,7 +22,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: GrpcService
-        path: src\dworthen.grpc.certificate.client\bin\Release\netcoreapp3.0\win-x64\publish
+        path: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish
     - name: Create grpc console client
       uses: actions/upload-artifact@master
       with:
