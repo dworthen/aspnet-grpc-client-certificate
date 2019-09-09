@@ -21,5 +21,9 @@ jobs:
     - name: Create artifact
       uses: actions/upload-artifact@master
       with:
-        name: publish
-        path: src\dworthen.grpc.certificate.client\bin\Release\netcoreapp3.0\win-x64
+        name: GrpcService
+        path: src\dworthen.grpc.certificate.client\bin\Release\netcoreapp3.0\win-x64\publish
+      uses: actions/upload-artifact@master
+      with:
+        name: ConsoleAppClient
+        path: src\dworthen.grpc.certificate.client\bin\Release\netcoreapp3.0\win-x64\publish
