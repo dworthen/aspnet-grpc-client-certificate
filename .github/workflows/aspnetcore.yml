@@ -18,19 +18,9 @@ jobs:
         dotnet-version: 3.0.100-preview8-013656
     - name: Publish with dotnet
       run: dotnet publish --configuration Release
-    - name: Create grpc artifact
-      uses: actions/upload-artifact@master
-      with:
-        name: GrpcService
-        path: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish
-    - name: Create grpc console client
-      uses: actions/upload-artifact@master
-      with:
-        name: ConsoleAppClient
-        path: src\dworthen.grpc.certificate.client\bin\Release\netcoreapp3.0\win-x64\publish
     - name: Release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish\**
+        artifacts: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish\dworthen.grpc.certificate.exe
         name: winx64GrpcService
         token: ${{ secrets.GITHUB_TOKEN }}
