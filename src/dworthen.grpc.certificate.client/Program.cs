@@ -36,11 +36,20 @@ namespace dworthen.grpc.certificate.client
 
             var httpClient = new HttpClient(handler);
 
-            // The port number must match the port of the gRPC server.
-            int port = Configuration.GetValue<int>("ServicePort");
-            httpClient.BaseAddress = new Uri($"https://localhost:{port}");
+            //// The port number must match the port of the gRPC server.
+            //string serviceLocation = Configuration.GetValue<string>("ServiceLocation");
+            //httpClient.BaseAddress = new Uri(serviceLocation);
 
-            var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
+            //var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
+
+            string serviceLocation = Configuration.GetValue<string>("ServiceLocation");
+
+
+            GrpcChannel channel = GrpcChannel.ForAddress(serviceLocation, new GrpcChannelOptions
+            {
+                HttpClient = httpClient
+            });
+            var client = new Greeter.GreeterClient(channel);
 
 
             var reply = await client.SayHelloAsync(

@@ -20,20 +20,27 @@ jobs:
         dotnet-version: 3.0.100-preview8-013656
     - name: Publish with dotnet
       run: dotnet publish --configuration Release
-    - name: Create grpc artifact
+    - name: Zip win-x64 grpc service
+      working-directory: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish
+      run: 7z a -tzip win-x64-grpc-service.zip * -r
+    - name: Zip win-x64 grpc console client
+      working-directory: src\dworthen.grpc.certificate.client\bin\Release\netcoreapp3.0\win-x64\publish
+      run: 7z a -tzip win-x64-grpc-console-client.zip * -r
+    - name: Create grpc service artifact
       uses: actions/upload-artifact@master
       with:
-        name: GrpcService
-        path: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish
-    - name: Create grpc console client
+        name: win-x64-grpc-service
+        path: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish\win-x64-grpc-service.zip
+    - name: Create grpc console client artifact
       uses: actions/upload-artifact@master
       with:
-        name: ConsoleAppClient
-        path: src\dworthen.grpc.certificate.client\bin\Release\netcoreapp3.0\win-x64\publish
+        name: win-x64-grpc-console-client
+        path: src\dworthen.grpc.certificate.client\bin\Release\netcoreapp3.0\win-x64\publish\win-x64-grpc-console-client.zip
     - name: Release
       uses: ncipollo/release-action@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        artifacts: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish\dworthen.grpc.certificate.exe
-        name: winx64GrpcService
+        artifacts: >-
+          src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish\win-x64-grpc-service.zip,
+          src\dworthen.grpc.certificate.client\bin\Release\netcoreapp3.0\win-x64\publish\win-x64-grpc-console-client.zip
         token: ${{ secrets.GITHUB_TOKEN }}
