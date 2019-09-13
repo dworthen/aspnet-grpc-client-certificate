@@ -29,20 +29,14 @@ namespace dworthen.grpc.certificate
                     {
                         options.ListenLocalhost(hostingContext.Configuration.GetValue<int>("Port"), listenOptions =>
                         {
-                            Console.WriteLine(Directory.GetCurrentDirectory());
-                            Console.WriteLine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase));
-                            Console.WriteLine(System.AppContext.BaseDirectory);
-                            Console.WriteLine(Path.GetDirectoryName(typeof(Program).Assembly.Location));
-                            //string basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
                             string basePath = System.AppContext.BaseDirectory;
                             string certPath = Path.Combine(basePath!, "Certs", "server.pfx");
-                            //string certPath = @"Certs\server.pfx";
-                            Console.WriteLine(certPath);
 
                             X509Certificate2 certificate = new X509Certificate2(certPath, "1111");
                             listenOptions.UseHttps(certificate, o =>
                             {
                                 o.ClientCertificateMode = ClientCertificateMode.RequireCertificate;
+                                // Allow for self-signed certificates
                                 o.AllowAnyClientCertificate();
                             });
                             listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;

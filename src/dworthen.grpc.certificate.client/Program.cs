@@ -18,14 +18,10 @@ namespace dworthen.grpc.certificate.client
 
         static async System.Threading.Tasks.Task Main(string[] args)
         {
-            //string basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
             string basePath = System.AppContext.BaseDirectory;
             string certPath = Path.Combine(basePath!, "Certs", "client.pfx");
-            Console.WriteLine(certPath);
 
             X509Certificate2 certificate = new X509Certificate2(certPath, "1111");
-
-            Console.WriteLine(certificate);
 
             var handler = new HttpClientHandler();
             handler.ClientCertificates.Add(certificate);
@@ -36,19 +32,13 @@ namespace dworthen.grpc.certificate.client
 
             var httpClient = new HttpClient(handler);
 
-            //// The port number must match the port of the gRPC server.
-            //string serviceLocation = Configuration.GetValue<string>("ServiceLocation");
-            //httpClient.BaseAddress = new Uri(serviceLocation);
-
-            //var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
-
             string serviceLocation = Configuration.GetValue<string>("ServiceLocation");
-
 
             GrpcChannel channel = GrpcChannel.ForAddress(serviceLocation, new GrpcChannelOptions
             {
                 HttpClient = httpClient
             });
+
             var client = new Greeter.GreeterClient(channel);
 
 

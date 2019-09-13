@@ -2,8 +2,6 @@ name: ASP.NET Core CI
 
 on: 
   push: 
-    branches:
-      - master
     tags:
       - '*'
 
@@ -18,7 +16,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.0.100-preview8-013656
-    - name: Publish with dotnet
+    - name: Publish win-x64
       run: dotnet publish --configuration Release
     - name: Zip win-x64 grpc service
       working-directory: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish
@@ -30,12 +28,12 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: win-x64-grpc-service
-        path: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish\win-x64-grpc-service.zip
+        path: src\dworthen.grpc.certificate\bin\Release\netcoreapp3.0\win-x64\publish\
     - name: Create grpc console client artifact
       uses: actions/upload-artifact@master
       with:
         name: win-x64-grpc-console-client
-        path: src\dworthen.grpc.certificate.client\bin\Release\netcoreapp3.0\win-x64\publish\win-x64-grpc-console-client.zip
+        path: src\dworthen.grpc.certificate.client\bin\Release\netcoreapp3.0\win-x64\publish\
     - name: Release
       uses: ncipollo/release-action@v1
       if: startsWith(github.ref, 'refs/tags/')
